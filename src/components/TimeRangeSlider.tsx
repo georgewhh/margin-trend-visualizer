@@ -51,6 +51,7 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({
         step={1}
         onValueChange={handleSliderValueChange}
         className="my-4"
+        thumbClassName="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
       />
       <div className="flex justify-between items-center mt-1 text-xs text-gray-400">
         <span>设置时间范围</span>

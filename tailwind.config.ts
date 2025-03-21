@@ -65,9 +65,10 @@ export default {
 				},
 				chart: {
 					line: '#F0BE83',
-					grid: 'rgba(0, 0, 0, 0.05)',
-					tooltip: 'rgba(255, 255, 255, 0.95)',
-					tooltipBorder: 'rgba(0, 0, 0, 0.05)'
+					grid: 'rgba(255, 255, 255, 0.1)',
+					tooltip: 'rgba(30, 30, 30, 0.95)',
+					tooltipBorder: 'rgba(255, 255, 255, 0.1)',
+					area: 'rgba(240, 190, 131, 0.15)'
 				}
 			},
 			borderRadius: {

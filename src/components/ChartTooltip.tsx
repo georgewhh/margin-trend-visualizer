@@ -18,7 +18,7 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ tooltipData }) => {
     <div 
       className={cn(
         "absolute pointer-events-none z-10 animate-fade-in",
-        "bg-chart-tooltip backdrop-blur-sm border border-chart-tooltipBorder",
+        "bg-chart-tooltip backdrop-blur-md border border-chart-tooltipBorder",
         "rounded-lg shadow-lg p-4 min-w-[160px]"
       )}
       style={{
@@ -27,10 +27,10 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ tooltipData }) => {
         transform: 'translateX(-50%)'
       }}
     >
-      <div className="text-xs font-medium text-gray-500 mb-1">{date}</div>
+      <div className="text-xs font-medium text-gray-400 mb-1">{date}</div>
       <div className="flex justify-between items-center">
-        <div className="text-xs font-semibold">融资融券余额占流通市值比</div>
-        <div className="text-sm font-bold text-black ml-2">{formattedValue}</div>
+        <div className="text-xs font-semibold text-gray-300">融资融券余额占流通市值比</div>
+        <div className="text-sm font-bold text-chart-line ml-2">{formattedValue}</div>
       </div>
     </div>
   );

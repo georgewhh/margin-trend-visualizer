@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
@@ -26,7 +25,6 @@ const MarginRatioChart: React.FC = () => {
   
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
-  // Fetch data
   useEffect(() => {
     const getData = async () => {
       try {
@@ -34,7 +32,6 @@ const MarginRatioChart: React.FC = () => {
         const data = await fetchMarginRatioData();
         setFullData(data);
         
-        // Initially show the last 200 days or all data if less than 200
         const endIndex = data.length - 1;
         const startIndex = Math.max(0, endIndex - 199);
         setTimeRange({ startIndex, endIndex });
@@ -49,7 +46,6 @@ const MarginRatioChart: React.FC = () => {
     getData();
   }, []);
 
-  // Update filtered data when full data or time range changes
   useEffect(() => {
     if (fullData.length > 0) {
       const { startIndex, endIndex } = timeRange;
@@ -80,7 +76,6 @@ const MarginRatioChart: React.FC = () => {
     }
   };
 
-  // Calculate domain for Y axis with some padding
   const calculateYDomain = () => {
     if (filteredData.length === 0) return [0, 0.1];
     
@@ -88,23 +83,20 @@ const MarginRatioChart: React.FC = () => {
     const min = Math.min(...values);
     const max = Math.max(...values);
     
-    // Add 10% padding to top and bottom
     const padding = (max - min) * 0.1;
     return [
-      Math.max(0, min - padding), // Don't go below zero
+      Math.max(0, min - padding),
       max + padding
     ];
   };
 
   const yDomain = calculateYDomain();
 
-  // Format dates for x-axis
   const formatXAxis = (timestamp: string) => {
     const date = new Date(timestamp);
     return `${date.getMonth() + 1}/${date.getDate()}`;
   };
 
-  // Calculate average for reference line
   const calculateAverage = () => {
     if (filteredData.length === 0) return 0;
     return filteredData.reduce((sum, item) => sum + item.value, 0) / filteredData.length;
@@ -116,8 +108,8 @@ const MarginRatioChart: React.FC = () => {
     <div className="w-full space-y-4">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">两融余额占流通市值比</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-xl font-semibold text-white/90">两融余额占流通市值比</h2>
+          <p className="text-sm text-gray-400 mt-1">
             最近 {filteredData.length} 个交易日数据
           </p>
         </div>
@@ -128,7 +120,7 @@ const MarginRatioChart: React.FC = () => {
       <div 
         ref={chartContainerRef} 
         className={cn(
-          "chart-container relative w-full h-80 border border-gray-100 bg-white rounded-lg p-4 shadow-sm",
+          "chart-container relative w-full h-80 border border-white/10 bg-[#222232]/70 rounded-lg p-4 shadow-md",
           isLoading && "animate-pulse-soft"
         )}
       >
@@ -155,13 +147,13 @@ const MarginRatioChart: React.FC = () => {
                 onMouseMove={handleTooltipChange}
                 onMouseLeave={() => setTooltipData(prev => ({ ...prev, active: false }))}
               >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatXAxis} 
                   tick={{ fontSize: 10, fill: '#9ca3af' }}
                   tickLine={false}
-                  axisLine={{ stroke: 'rgba(0,0,0,0.1)' }}
+                  axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
                   interval={Math.floor(filteredData.length / 6)}
                 />
                 <YAxis 
@@ -174,17 +166,17 @@ const MarginRatioChart: React.FC = () => {
                   tickCount={5}
                 />
                 <Tooltip 
-                  content={<div></div>} // Empty div as we use custom tooltip
+                  content={<div></div>}
                   cursor={{ stroke: '#9ca3af', strokeWidth: 1, strokeDasharray: '3 3' }}
                 />
                 <ReferenceLine 
                   y={averageValue} 
-                  stroke="rgba(0,0,0,0.2)" 
+                  stroke="rgba(255,255,255,0.2)" 
                   strokeDasharray="3 3" 
                   label={{ 
                     value: `均值: ${formatPercentage(averageValue)}`, 
                     position: 'right',
-                    fill: '#6b7280',
+                    fill: '#9ca3af',
                     fontSize: 10 
                   }} 
                 />

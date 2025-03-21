@@ -56,15 +56,15 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, change }) => {
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
-      <h3 className="text-sm text-gray-500 font-medium mb-1">{title}</h3>
+    <div className="bg-[#222232]/50 border border-white/10 rounded-lg p-4 shadow-md backdrop-blur-sm">
+      <h3 className="text-sm text-gray-400 font-medium mb-1">{title}</h3>
       <div className="flex items-end justify-between">
-        <div className="text-xl font-semibold">{value}</div>
+        <div className="text-xl font-semibold text-white/90">{value}</div>
         {change !== undefined && (
           <div className={cn(
             "text-xs font-medium",
-            change > 0 ? "text-green-600" : 
-            change < 0 ? "text-red-600" : "text-gray-500"
+            change > 0 ? "text-green-400" : 
+            change < 0 ? "text-red-400" : "text-gray-500"
           )}>
             {change > 0 ? '+' : ''}{(change * 100).toFixed(2)}%
           </div>

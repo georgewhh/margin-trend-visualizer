@@ -35,12 +35,6 @@ export const fetchMarginRatioData = async (): Promise<MarginRatioDataPoint[]> =>
       fixed: "20"
     };
 
-    // In a real production environment, we would use the actual API endpoint
-    // For demo purposes, we'll create a mocked response
-    const mockData = generateMockData(200);
-    
-    // In production, you would use:
-    /*
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
@@ -54,51 +48,10 @@ export const fetchMarginRatioData = async (): Promise<MarginRatioDataPoint[]> =>
     }
 
     const data: ApiResponse = await response.json();
-    */
 
-    // For the sake of this demo, we'll just return the mock data
-    return mockData;
+
   } catch (error) {
     console.error("Error fetching margin ratio data:", error);
     throw error;
   }
 };
-
-// Generate mock data for demo purposes
-function generateMockData(days: number): MarginRatioDataPoint[] {
-  const data: MarginRatioDataPoint[] = [];
-  const endDate = new Date();
-  
-  // Start from 'days' trading days ago (excluding weekends)
-  let currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() - days * 1.4); // Roughly account for weekends
-  
-  let baseValue = 0.04 + Math.random() * 0.02; // Start with a value between 4-6%
-  
-  while (currentDate <= endDate) {
-    // Skip weekends
-    if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-      // Add some volatility to the data
-      const change = (Math.random() - 0.5) * 0.002; // Small random changes
-      baseValue += change;
-      
-      // Add trend and cycles to make it look more realistic
-      const trend = Math.sin(data.length / 30) * 0.005;
-      const cyclical = Math.sin(data.length / 10) * 0.002;
-      
-      // Ensure value stays in a reasonable range (3-8%)
-      baseValue = Math.max(0.03, Math.min(0.08, baseValue + trend + cyclical));
-      
-      data.push({
-        date: formatDate(currentDate.getTime()),
-        timestamp: currentDate.getTime(),
-        value: baseValue
-      });
-    }
-    
-    // Move to next day
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-  
-  return data;
-}

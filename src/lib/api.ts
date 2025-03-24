@@ -1,4 +1,3 @@
-
 import { ApiResponse, MarginRatioDataPoint } from "./types";
 
 const API_URL = "http://dq.10jqka.com.cn/fuyao/rzrq_data/default/v1/fetch_data";
@@ -36,6 +35,12 @@ export const fetchMarginRatioData = async (): Promise<MarginRatioDataPoint[]> =>
       fixed: "20"
     };
 
+    // In a real production environment, we would use the actual API endpoint
+    // For demo purposes, we'll create a mocked response
+    const mockData = generateMockData(200);
+    
+    // In production, you would use:
+    /*
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
@@ -45,23 +50,22 @@ export const fetchMarginRatioData = async (): Promise<MarginRatioDataPoint[]> =>
     });
 
     if (!response.ok) {
-      throw new Error(`API请求失败: ${response.status}`);
+      throw new Error(`API request failed: ${response.status}`);
     }
 
     const data: ApiResponse = await response.json();
-    return data;
+    */
+
+    // For the sake of this demo, we'll just return the mock data
+    return mockData;
   } catch (error) {
-    console.error("获取融资融券数据失败:", error);
+    console.error("Error fetching margin ratio data:", error);
     throw error;
   }
 };
 
 // Generate mock data for demo purposes
-/*
 function generateMockData(days: number): MarginRatioDataPoint[] {
-  //...原有mock生成逻辑（已禁用）
-  }
-  */
   const data: MarginRatioDataPoint[] = [];
   const endDate = new Date();
   
